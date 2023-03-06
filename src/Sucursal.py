@@ -8,6 +8,7 @@ class Sucursal:
     numero = 0
     telefonos = []
     direccion = ''
+    fecha = ''
     def __init__(self):
         """
         Se asignan valores iniciales de las variables
@@ -18,6 +19,7 @@ class Sucursal:
         self.calle = ''
         self.codigoPostal = '' 
         self.numero = 0
+        self.fechaApertura = ''
         self.telefonos = []
         self.direccion = ''
 
@@ -83,6 +85,13 @@ class Sucursal:
             else:
                 self.telefonos.append(telefono)       
                 
+    def setFechaApertura(self, fechaApertura):
+            """
+            Se le asigna fecha de apertura a una sucursal
+            :param str fecha: Fecha de apertura de la sucursal
+            """
+            self.fechaApertura = fechaApertura
+            
     def setID(self, id):
             """
             Se asigna un ID único a la sucursal
@@ -131,6 +140,12 @@ class Sucursal:
             Devuelve los numeros de telefono registrados para la sucursal
             """
             return self.telefonos
+        
+    def getFechaApertura(self):
+            """
+            Devuelve la fecha de apertura de la sucursal
+            """
+            return self.fechaApertura
         
     def getID(self):
             """
