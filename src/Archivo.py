@@ -1,6 +1,6 @@
+import pandas as pd
 import csv
 import os.path
-import pandas as pd
 import sys
 from Sucursal import Sucursal
 from Empleado import Empleado
@@ -9,9 +9,12 @@ from Producto import Producto
 class Archivo:
     
     global archivo
+    
     def __init__(self):
         global archivo
 
+
+    
     def verificaExistenciaSucursales(self, archivo):
         if(os.path.isfile("CSV/" + archivo +".csv")):
             self.archivo = open("CSV/"+ archivo + ".csv", "a")
@@ -20,11 +23,14 @@ class Archivo:
             self.inicializaSucursales(self.archivo)
 
     
+    
     def inicializaSucursales(self, archivo):
         writer = csv.writer(archivo)
         writer.writerow(["ID", "Nombre", "Colonia", "Calle", "Numero", "CodigoPostal", "Telefonos"])
         archivo.close()
 
+    
+    
     def agregarSucursal(self, archivo, sucursal):
         with open('CSV/Sucursales.csv', 'a', newline='') as archivo:
 
@@ -35,8 +41,9 @@ class Archivo:
                             sucursal.getTelefono()]
             writer.writerow(nuevaSucursal)
         
-        archivo.close()
+        archivo.close() 
 
+    
     def consultarSucursal(self, id):
         with open('CSV/Sucursales.csv') as archivo:
             reader = csv.reader(archivo, delimiter=',')
@@ -47,8 +54,13 @@ class Archivo:
                     print(encabezado)
                     print(row)
                     break
-
-        
+    
+    
+    
+   
+   
+    
+    
             
 
 arch = Archivo()
