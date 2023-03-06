@@ -1,7 +1,10 @@
 class Empleado:
     #Definimos los datos que tiene un empleado
     id = ''
-    nombre = ''
+    nombreCompleto = ''
+    nombres = ''
+    apellidoMaterno = ''
+    apellidoPaterno = ''
     direccion = ''
     telefonos = []
     fechaDeNacimiento = ''
@@ -14,7 +17,10 @@ class Empleado:
             Se asignan valores iniciales de las variables
             """
             self.id = ''
-            self.nombre = ''
+            self.nombreCompleto = ''
+            self.nombres = ''
+            self.apellidoMaterno = ''
+            self.apellidoPaterno = ''
             self.colonia = ''
             self.calle = ''
             self.codigoPostal = '' 
@@ -22,12 +28,36 @@ class Empleado:
             self.telefonos = []
             self.direccion = ''
 
-    def setNombre(self, nombre):
+    def setNombre(self, nombres, apellidoMaterno, apellidoPaterno):
             """
             Se asigna el nombre del empleado
             :param str nombre: Nombre del empleado
             """
-            self.nombre = nombre
+            self.setNombres(self, nombres)
+            self.setApellidoMaterno(self, apellidoMaterno)
+            self.setApellidoPaterno(self, apellidoPaterno)
+            self.nombreCompleto = nombres + ' ' + apellidoMaterno + ' ' +  apellidoPaterno
+            
+    def setNombres(self, nombres):
+            """
+            Se asigna el nombre o nombres del empleado
+            :param str nombres: Nombre(s) del empleado
+            """
+            self.nombres = nombres
+     
+    def setApellidoMaterno(self, apellidoMaterno):
+            """
+            Se asigna el apellido materno del empleado
+            :param str apellidoMaterno: Apellido materno del empleado
+            """
+            self.apellidoMaterno = apellidoMaterno
+            
+    def setApellidoPaterno(self, apellidoPaterno):
+            """
+            Se asigna el apellido paterno del empleado
+            :param str apellidoPaterno: Apellido paterno del empleado
+            """
+            self.apellidoPaterno = apellidoPaterno
 
     def setDireccion(self, colonia, calle, codigoPostal, numero):
             """
@@ -122,11 +152,29 @@ class Empleado:
             """
             self.sucursal = sucursal
 
-    def getNombre(self):
+    def getNombreCompleto(self):
             """
-            Devuelve el nombe del empleado
+            Devuelve el nombre completo del empleado
             """
-            return self.nombre
+            return self.nombreCompleto
+        
+    def getNombres(self):
+            """
+            Devuelve el nombre del empleado
+            """
+            return self.nombres
+        
+    def getApellidoMaterno(self):
+            """
+            Devuelve el apellido materno del empleado
+            """
+            return self.apellidoMaterno
+        
+    def getApellidoPaterno(self):
+            """
+            Devuelve el apellido paterno del empleado
+            """
+            return self.apellidoPaterno
     
     def getDireccion(self):
             """
