@@ -49,11 +49,14 @@ class Archivo:
                     break
     
     def eliminarSucursal(self, id):
-        data = pd.read_csv('CSV/Sucursales.csv', header=0)
-        print(id)
-        indice = data.index[data["ID"] == id]
-        data.drop(indice, inplace=True)
-        data.to_csv('CSV/Sucursales.csv', index= False) 
+        if(self.existeIDSucursal(id)):
+            data = pd.read_csv('CSV/Sucursales.csv')
+            print(id)
+            indice = data.index[data["ID"] == id]
+            data.drop(indice, inplace=True)
+            data.to_csv('CSV/Sucursales.csv', index= False) 
+        else:
+            print("No se encontro el ID") 
 
     def editarDato(self, id,columna, datoNuevo):
         data = pd.read_csv('CSV/Sucursales.csv', index_col= 'ID')
