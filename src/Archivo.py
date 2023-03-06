@@ -1,40 +1,53 @@
 import csv
 import os.path
 import pandas as pd
+import sys
 from Sucursal import Sucursal
 from Empleado import Empleado
 from Producto import Producto
 
 class Archivo:
     
-    global file
+    global archivo
     def __init__(self):
-        global file
+        global archivo
 
     def verificaExistenciaSucursales(self, archivo):
         if(os.path.isfile("CSV/" + archivo +".csv")):
-            self.file = open("CSV/"+ archivo + ".csv", "a")
+            self.archivo = open("CSV/"+ archivo + ".csv", "a")
         else:
-            self.file = open("CSV/"+archivo + ".csv", "w")
-            self.inicializaSucursales(self.file)
+            self.archivo = open("CSV/"+archivo + ".csv", "w")
+            self.inicializaSucursales(self.archivo)
 
     
-    def inicializaSucursales(self, file):
-        writer = csv.writer(file)
+    def inicializaSucursales(self, archivo):
+        writer = csv.writer(archivo)
         writer.writerow(["ID", "Nombre", "Colonia", "Calle", "Numero", "CodigoPostal", "Telefonos"])
-        file.close()
+        archivo.close()
 
-    def agregarSucursal(self, file, sucursal):
-        with open('CSV/Sucursales.csv', 'a', newline='') as file:
+    def agregarSucursal(self, archivo, sucursal):
+        with open('CSV/Sucursales.csv', 'a', newline='') as archivo:
 
-            writer = csv.writer(file)
+            writer = csv.writer(archivo)
             nuevaSucursal = [sucursal.getID(), sucursal.getNombre(),
                         sucursal.getColonia(), sucursal.getCalle(),
                             sucursal.getNumero(), sucursal.getCodigoPostal(),
                             sucursal.getTelefono()]
             writer.writerow(nuevaSucursal)
         
-        file.close()
+        archivo.close()
+
+    def consultarSucursal(self, id):
+        with open('CSV/Sucursales.csv') as archivo:
+            reader = csv.reader(archivo, delimiter=',')
+            encabezado = next(archivo)
+            next(archivo)
+            for row in reader:
+                if (row[0] == id):
+                    print(encabezado)
+                    print(row)
+                    break
+
         
             
 
@@ -51,7 +64,7 @@ suc.setTelefono(5598546451)
 suc.setTelefono(1234569426)
 suc.setTelefono(6489278922)
 
-arch.agregarSucursal(arch.file, suc)
+arch.agregarSucursal(arch.archivo, suc)
 
 suc1 = Sucursal()
 suc1.setID("sucursal02")
@@ -64,6 +77,8 @@ suc1.setTelefono(1234567894)
 suc1.setTelefono(1234568935)
 suc1.setTelefono(6489278922)
 
-arch.agregarSucursal(arch.file, suc1)
+arch.agregarSucursal(arch.archivo, suc1)
+
+arch.consultarSucursal("sucursal02")
 
 
