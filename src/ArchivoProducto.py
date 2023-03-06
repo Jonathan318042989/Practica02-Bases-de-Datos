@@ -51,10 +51,10 @@ def agregarProducto(producto):
                      producto.get_refrigeracion(),
                      producto.get_fechCad(),
                      producto.get_fechLab()]
-    #df_producto = readCSV(file )
+   
    
     df_producto=pd.concat([df_producto,pd.DataFrame([dataProducto] , index = [producto.get_id()],columns=df_producto.columns)], ignore_index=False)#Añade en la ultima posicion
-    #df_producto.set_index('ID', inplace=True)
+   
     df_producto.to_csv(filePath, index_label='Id')
     
     
@@ -89,14 +89,22 @@ def consultaProducto(id):
 #El archivo ya debe estar cargado
 
 def eliminarProducto(id):
+    """ 
+    Eliminia un producto dado el id
+    :param str id: Id del producto
+    """
     global df_producto
     df_producto.drop(index=id, inplace=True)
     df_producto.to_csv(filePath, index_label='Id')
     
 
 
-
-
+#El archivo ya debe estar cargado con el Id como indice
+def editarDato(id, columna, datoNuevo):
+    df_producto.loc[id, columna] = datoNuevo
+    df_producto.to_csv(filePath,index_label='Id')
+    
+    
 
 
 #---------------------------------------------------------------
@@ -131,12 +139,18 @@ print(consultaProducto('XX3'))
 
 
 #Probando eliminar filas
+"""
 df_producto = readCSV()
 print(df_producto)
 print('Eliminando XX2')
 print(eliminarProducto('XX2'))
 
+"""
 
-#print(df_producto)
-#df_producto = agregarProducto(producto1,'productosSuc102')
-#print(df_producto)
+#Probando editar datos
+""""
+df_producto = readCSV()
+print(df_producto)
+editarDato('XX1', 'Nombre', 'Papas fritas')
+print(df_producto)
+"""
