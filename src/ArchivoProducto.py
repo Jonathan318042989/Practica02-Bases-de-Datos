@@ -3,6 +3,7 @@ import csv
 import os.path
 import sys
 from Producto import Producto
+from pathlib import Path
 
 
 
@@ -10,13 +11,16 @@ from Producto import Producto
 df_producto = pd.DataFrame(columns=['ID', 'Nombre','Stock', 'Marca','Presentacion',
                                     'Precio', 'Refrigeracion', 'FechaCad', 'FechaLab'])
 
+#Nombre del archivo csv que guardara los productos
+filePath = "src/CSV/Productos.csv"
+
 """ 
 Verifica si el archivo existe
-:param str archivo: nombre del archivi a verficar existencia.
 :return true si el archivo existe, false en otro caso.
 """
-def exist_file( archivo):
-    if(os.path.exists(archivo +".csv")):
+def exist_file( ):
+    global fileNam
+    if(os.path.exists(filePath)):
         return True
     else:
         #En otro caso lo escribe
@@ -26,10 +30,10 @@ def exist_file( archivo):
 
 
 """ Lee un archivo csv y lo convierte a un dataframe
-:param str archivo: Nombre del archivo a leer
 :return dataframe con los datos del archiv"""    
-def readCSV(archivo):
-    df = pd.read_csv(archivo + ".csv",index_col=0) 
+def readCSV():
+    global filePath
+    df = pd.read_csv(filePath,index_col=0) 
     return df
 
 
@@ -38,12 +42,12 @@ def readCSV(archivo):
 Agrega producto a un dataframe existente y actualiza el archivo
 csv
 :param Producto producto: objeto producto a agregar.
-:param str file : nombre del archivo que llevara cuando se guarde en csv.
 :return dataframe con la informacion actualizada.
         
  """
-def agregarProducto(producto, file):   
+def agregarProducto(producto):   
     global df_producto
+    global filePath
     dataProducto =[  producto.get_id(),producto.get_nombre(),
                      producto.get_stock(), producto.get_marca(),
                      producto.get_presentacion(),
@@ -55,7 +59,7 @@ def agregarProducto(producto, file):
    
     df_producto=pd.concat([df_producto,pd.DataFrame([dataProducto],columns=df_producto.columns)], ignore_index=True)#Añade en la ultima posicion
     #df.set_index('ID', inplace=True)
-    df_producto.to_csv(file+".csv")
+    df_producto.to_csv(filePath)
     
     
     return df_producto
@@ -66,12 +70,11 @@ si no hay productos.
 
 :param Producto producto: Objeto de la clase producto, el cual
 será el primero en almacenar.
-:param str archivoName: nombre que llevara el archivo csv cuando se 
-genere.
 :return dataframe inicializado.
 """    
-def inicializaProducto(producto,archivoName):
+def inicializaProducto(producto):
     global df_producto
+    global filePath
     dataProducto = [ producto.get_id(),producto.get_nombre(),
                      producto.get_stock(), producto.get_marca(),
                      producto.get_presentacion(),
@@ -85,7 +88,7 @@ def inicializaProducto(producto,archivoName):
     #df.set_index('ID', inplace=True)
     #print(df)
     #genernando el archivo
-    df_producto.to_csv(archivoName+'.csv')
+    df_producto.to_csv(filePath)
     return df_producto
 
 producto = Producto('XX1', 'Verduras', 34, 'Barcel', 'Bolsa', 24, False, '02-04-2023', '04-09-2019')
@@ -93,14 +96,15 @@ producto1 = Producto('XX2', 'Verduras', 54, 'Barcel', 'Lata', 64, False, '02-04-
 
 
 
-if exist_file('productosSuc102' ):
-    df_producto = readCSV('productosSuc102')
+
+if exist_file():
+    df_producto = readCSV()
     #df_producto.set_index('ID', inplace=True)
-    df_producto =agregarProducto(producto1, 'productosSuc102')
-    df_producto.to_csv('productosSuc102'+'.csv')
+    df_producto =agregarProducto(producto1)
+    df_producto.to_csv(filePath)
     print(df_producto)
 else:
-    df_producto = inicializaProducto(producto,'productosSuc102')
+    df_producto = inicializaProducto(producto)
     print(df_producto)
 
 
