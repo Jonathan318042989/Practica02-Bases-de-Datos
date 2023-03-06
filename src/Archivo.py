@@ -22,7 +22,7 @@ class Archivo:
     
     def inicializaSucursales(self, archivo):
         writer = csv.writer(archivo)
-        writer.writerow(["ID", "Nombre", "Colonia", "Calle", "Numero", "CodigoPostal", "Telefonos"])
+        writer.writerow(["ID", "Nombre", "Colonia", "Calle", "Numero", "CodigoPostal", "Telefonos", "Fecha de apertura"])
         archivo.close()
 
     def agregarSucursal(self, archivo, sucursal):
@@ -32,7 +32,7 @@ class Archivo:
             nuevaSucursal = [sucursal.getID(), sucursal.getNombre(),
                         sucursal.getColonia(), sucursal.getCalle(),
                             sucursal.getNumero(), sucursal.getCodigoPostal(),
-                            sucursal.getTelefono()]
+                            sucursal.getTelefono(), sucursal.getFechaApertura()]
             writer.writerow(nuevaSucursal)
         
         archivo.close()
