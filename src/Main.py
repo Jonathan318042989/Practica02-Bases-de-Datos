@@ -1,5 +1,6 @@
 from ArchivoSucursal import ArchivoSucursal
 from ArchivoEmpleado import ArchivoEmpleado
+from ArchivoProducto import menuProductos
 
 
 class Main:
@@ -29,14 +30,15 @@ class Main:
                     break
                 elif opcion == 3:
                     print('\nGestionar productos')
+                    menuProductos()
                     break
                 elif opcion == 4:
                     print("\n¡Hasta luego!")
                     return
                 else:
                     print("Opción inválida. Intente de nuevo.")
-        except ValueError:
-            print("ERROR: Algo paso!!")
+        except Exception as e:
+            print("ERROR: Algo paso!!" +  str(e))
 
 main = Main()
 main.menu()
