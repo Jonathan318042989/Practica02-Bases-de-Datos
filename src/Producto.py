@@ -108,11 +108,11 @@ class Producto:
     
     def set_fechCad(self, fecha):
         """Se modifica la fecha de caducidad del producto
-        :param str nombre: Nueva fecha de caducidad"""
+        :param fecha: Nueva fecha de caducidad"""
         self.__fechCad = fecha
         
     def set_fechLab(self, fecha):
         """Se modifica la fecha de elaboracion del producto
-        :param str nombre: Nueva fecha de elaboracion"""
+        :param fecha: Nueva fecha de elaboracion"""
         self.__fechLab = fecha
         
