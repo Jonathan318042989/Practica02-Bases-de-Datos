@@ -9,19 +9,17 @@ class Sucursal:
     telefonos = []
     direccion = ''
     fecha = ''
-    def __init__(self):
-        """
-        Se asignan valores iniciales de las variables
-        """
-        self.id = ''
-        self.nombre = ''
-        self.colonia = ''
-        self.calle = ''
-        self.codigoPostal = '' 
-        self.numero = 0
-        self.fechaApertura = ''
-        self.telefonos = []
-        self.direccion = ''
+
+    def __init__(self, id, nombre, colonia, calle, numero, codigoPostal, telefonos, fechaApertura):
+            """
+            Se asignan valores iniciales de las variables
+            """
+            self.setID(id)
+            self.setNombre(nombre)
+            self.telefonos = []
+            self.setTelefono(telefonos)
+            self.setDireccion(colonia, calle, codigoPostal, numero)
+            self.setFechaApertura(fechaApertura)
 
     def setNombre(self, nombre):
             """
@@ -38,11 +36,11 @@ class Sucursal:
             :param str codigoPostal: Codigo Postal de donde se encuentra la sucursal
             :param int numero: Numero del edificio de la sucursal
             """
-            self.setColonia(self, colonia)
-            self.setCalle(self, calle)
-            self.setCodigoPostal(self, codigoPostal)
-            self.setNumero(self, numero)
-            self.direccion = colonia + ', ' + calle + ', ' +  self.getNumero(self) + ', ' + self.setCodigoPostal()
+            self.setColonia(colonia)
+            self.setCalle(calle)
+            self.setCodigoPostal(codigoPostal)
+            self.setNumero(numero)
+            self.direccion = colonia + ', ' + calle + ', ' +  self.getNumero() + ', ' + self.getCodigoPostal()
 
     def setColonia(self, colonia):
             """

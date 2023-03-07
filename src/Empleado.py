@@ -12,21 +12,19 @@ class Empleado:
     puesto = ''
     sucursal = ''
 
-    def __init__(self):
+    def __init__(self, id, nombres, apellidoMaterno, apellidoPaterno, colonia, calle, numero, codigoPostal, telefonos, correo, fechaNacimiento):
             """
             Se asignan valores iniciales de las variables
             """
-            self.id = ''
-            self.nombreCompleto = ''
-            self.nombres = ''
-            self.apellidoMaterno = ''
-            self.apellidoPaterno = ''
-            self.colonia = ''
-            self.calle = ''
-            self.codigoPostal = '' 
-            self.numero = 0
+            self.setID(id)
+            self.setNombre(nombres, apellidoMaterno, apellidoPaterno)
+            self.setDireccion(colonia, calle, codigoPostal, numero)
+            self.setNumero(numero)
+            self.correos = []
+            self.setCorreo(correo)
             self.telefonos = []
-            self.direccion = ''
+            self.setTelefono(telefonos)
+            self.setFechaDeNacimiento(fechaNacimiento)
 
     def setNombre(self, nombres, apellidoMaterno, apellidoPaterno):
             """
