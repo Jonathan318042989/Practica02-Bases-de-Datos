@@ -12,7 +12,7 @@ class Empleado:
     puesto = ''
     sucursal = ''
 
-    def __init__(self, id, nombres, apellidoMaterno, apellidoPaterno, colonia, calle, numero, codigoPostal, telefonos, correo, fechaNacimiento):
+    def __init__(self, id, nombres, apellidoMaterno, apellidoPaterno, colonia, calle, numero, codigoPostal, telefonos, correo, fechaNacimiento, puesto, idSucursal):
             """
             Se asignan valores iniciales de las variables
             """
@@ -25,15 +25,17 @@ class Empleado:
             self.telefonos = []
             self.setTelefono(telefonos)
             self.setFechaDeNacimiento(fechaNacimiento)
+            self.setPuesto(puesto)
+            self.setSucursal(idSucursal)
 
     def setNombre(self, nombres, apellidoMaterno, apellidoPaterno):
             """
             Se asigna el nombre del empleado
             :param str nombre: Nombre del empleado
             """
-            self.setNombres(self, nombres)
-            self.setApellidoMaterno(self, apellidoMaterno)
-            self.setApellidoPaterno(self, apellidoPaterno)
+            self.setNombres(nombres)
+            self.setApellidoMaterno(apellidoMaterno)
+            self.setApellidoPaterno(apellidoPaterno)
             self.nombreCompleto = nombres + ' ' + apellidoMaterno + ' ' +  apellidoPaterno
             
     def setNombres(self, nombres):
@@ -65,10 +67,10 @@ class Empleado:
             :param str codigoPostal: Codigo postal de la direccion del empleado
             :param int numero: Numero de la direccion del empleado
             """
-            self.setColonia(self, colonia)
-            self.setCalle(self, calle)
-            self.setCodigoPostal(self, codigoPostal)
-            self.setNumero(self, numero)
+            self.setColonia(colonia)
+            self.setCalle(calle)
+            self.setCodigoPostal(codigoPostal)
+            self.setNumero(numero)
             self.direccion = colonia + ', ' + calle + ', ' +  str(numero) + ', ' + codigoPostal
 
     def setColonia(self, colonia):
@@ -233,3 +235,9 @@ class Empleado:
            Devuelve la sucursal donde trabaja el empleado
            """
            return self.sucursal
+    
+    def getFechaDeNacimiento(self):
+           """
+           Devuelve la sucursal donde trabaja el empleado
+           """
+           return self.fechaDeNacimiento
