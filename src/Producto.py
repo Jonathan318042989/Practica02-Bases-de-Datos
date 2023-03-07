@@ -78,4 +78,41 @@ class Producto:
         """Se modifica el nombre del producto
         :param str nombre: Nuevo nombre del producto"""
         self.__nombre = nombre
-
+        
+    def set_stock(self, stock):
+        """Se modifica el stock del producto
+        :param int stock: Nuevo stock del producto"""
+        self.__stock = stock
+    
+    def set_marca(self, marca):
+        """Se modifica la marca del producto
+        :param str marca: Nueva marca del producto"""
+        self.__marca = marca
+        
+    def set_presentacion(self, presentacion):
+        """Se modifica la presentacion del producto
+        :param str presentacion: Nueva presentacion del producto"""
+        self.__presentacion = presentacion
+        
+    def set_precio(self, precio):
+        """Se modifica el precio del producto
+        :param double precio: Nuevo precio del producto"""
+        self.__precio = precio
+    
+    def set_refrigeracion(self):
+        """Se modifica si el producto requiere de refrigeracion"""
+        if  self.__refrigeracion : 
+            self.__refrigeracion = False
+        else:
+            self.__refrigeracion = True
+    
+    def set_fechCad(self, fecha):
+        """Se modifica la fecha de caducidad del producto
+        :param fecha: Nueva fecha de caducidad"""
+        self.__fechCad = fecha
+        
+    def set_fechLab(self, fecha):
+        """Se modifica la fecha de elaboracion del producto
+        :param fecha: Nueva fecha de elaboracion"""
+        self.__fechLab = fecha
+        

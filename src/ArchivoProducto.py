@@ -50,6 +50,10 @@ def existe_id(id):
        ya existe en los productos registrados en el dataframe
     Args:
         id (str): Id a verficar existencia
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3377f234800c098fb8a2d3f06a2851e875dd246b
     Returns:
         bool: true si existe, false en otro caso
     """
