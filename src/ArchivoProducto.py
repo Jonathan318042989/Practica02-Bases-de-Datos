@@ -1,8 +1,8 @@
 import pandas as pd
 import os.path
 from Producto import Producto
-
-
+import uuid
+import numpy as np
 
 #Nombre del archivo csv que guardara los productos
 filePath = "src/CSV/Productos.csv"
@@ -35,6 +35,39 @@ def readCSV():
 
 
 
+def generar_id():
+    """ 
+    Genera un id numero de 8 elementos.
+    :return id generado
+    """
+    uid = uuid.uuid4().int & (10**8 - 1)
+    return str(uid).zfill(8)
+
+#Considerando  que df ya esta cargado
+def existe_id(id):
+    """Determina si el id que pasa como parametro 
+       ya existe en los productos registrados en el dataframe
+    Args:
+        id (str): Id a verficar existencia
+
+    Returns:
+        bool: true si existe, false en otro caso
+    """
+    global df_producto
+    return id in df_producto.index
+    
+
+def generar_id_unico():
+    """ 
+    Genera un id unico
+    :retunr: str id unico
+    """
+    id_unico = generar_id()
+    while existe_id(id):
+        id_unico = generar_id
+    return id_unico
+        
+    
 def agregarProducto(producto):
     """
     Agrega producto a un dataframe existente y actualiza el archivo
@@ -44,6 +77,8 @@ def agregarProducto(producto):
     """   
     global df_producto
     global filePath
+    # Asignar id unico a producto 
+    producto.set_id(generar_id_unico())
     dataProducto =[  producto.get_id(),producto.get_nombre(),
                      producto.get_stock(), producto.get_marca(),
                      producto.get_presentacion(),
@@ -109,25 +144,27 @@ def editarDato(id, columna, datoNuevo):
 
 #---------------------------------------------------------------
 
-producto = Producto('XX1', 'Verduras', 34, 'Barcel', 'Bolsa', 24, False, '02-04-2023', '04-09-2019')
-producto1 = Producto('XX2', 'Verduras', 54, 'Barcel', 'Lata', 64, False, '02-04-2023', '04-09-2019')
-producto3 = Producto('XX3', 'Leche', 75, 'Santa Clara', 'Carton', 34, False, '02-04-2023', '04-09-2019')
+producto = Producto(' ', 'Verduras', 34, 'Barcel', 'Bolsa', 24, False, '02-04-2023', '04-09-2019')
+producto1 = Producto(' ', 'Verduras', 54, 'Barcel', 'Lata', 64, False, '02-04-2023', '04-09-2019')
+producto3 = Producto(' ', 'Leche', 75, 'Santa Clara', 'Carton', 34, False, '02-04-2023', '04-09-2019')
 
 
-"""
+#proband ids 
+
+
+""""
 if exist_file():
     df_producto = readCSV()
     df_producto = agregarProducto(producto3)
     print(df_producto)
    
-    
-    print(df_producto.shape[1])
+   
 else: 
     inicializaProducto()
     print(df_producto)
     
-    
 """    
+    
 
 #Probando consulta
 """

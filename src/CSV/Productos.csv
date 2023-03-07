@@ -1,3 +1,4 @@
 Id,Id.1,Nombre,Stock,Marca,Presentacion,Precio,Refrigeracion,FechaCad,FechaLab
-XX1,XX1,Papas fritas,34,Bolsa,24,Barcel,False,02-04-2023,04-09-2019
-XX3,XX3,Leche,75,Carton,34,Santa Clara,False,02-04-2023,04-09-2019
+85213338,85213338,Verduras,34,Bolsa,24,Barcel,False,02-04-2023,04-09-2019
+11632761,11632761,Verduras,54,Lata,64,Barcel,False,02-04-2023,04-09-2019
+19243212,19243212,Leche,75,Carton,34,Santa Clara,False,02-04-2023,04-09-2019
