@@ -13,8 +13,6 @@ filePath = "src/CSV/Productos.csv"
 df_producto = pd.DataFrame(columns=['ID', 'NOMBRE','STOCK', 'MARCA','PRESENTACION','PRECIO', 'REFRIGERACION', 'FECHACAD', 'FECHAELAB'])
 
 
-#df_producto.set_index('Id')
-
 def exist_file():
    """ 
    Verifica si el archivo existe
@@ -55,8 +53,6 @@ def existe_id(id):
         bool: true si existe, false en otro caso
     """
     global df_producto
-    #df_producto = readCSV()
-    #print(df_producto.index)
     df_producto.index = df_producto.index.astype(str)
     return id in df_producto.index
     
@@ -93,10 +89,7 @@ def agregarProducto(producto):
    
    
     df_producto=pd.concat([df_producto,pd.DataFrame([dataProducto] , index = [producto.get_id()],columns=df_producto.columns)], ignore_index=False)#Añade en la ultima posicion
-    #df_producto.index = df_producto.index.astype(str)
     df_producto.to_csv(filePath, index_label='ID')
-    
-    
     return df_producto
     
 
@@ -110,7 +103,6 @@ def inicializaProducto():
     global filePath
     
     df_producto.to_csv(filePath,index_label='ID', header=True)
-    #df_producto.index = df_producto.index.astype(str)
     return df_producto
 
 #El archivo ya debe estar cargado con los IDS como indices
@@ -141,7 +133,6 @@ def eliminarProducto(id):
     global df_producto
     if existe_id(id):
         df_producto.drop(index=id, inplace=True)
-        #df_producto.index = df_producto.index.astype(str)
         df_producto.to_csv(filePath, index_label='ID')
         print('\nProducto eliminado exitosamente!!')
     else:
@@ -150,7 +141,12 @@ def eliminarProducto(id):
 
 #El archivo ya debe estar cargado con el Id como indice
 def editarDato(id, columna, datoNuevo):
-    if existe_id:
+    """ Edita el dato de la celda dada su columna e id
+    :param str id: id del producto
+    :param  str columna: columna de la celda a modificar
+    :para nuevo dato: nuevo dato con el que se reemplazará"""
+    global df_producto
+    if existe_id(id):
         df_producto.loc[df_producto.index == id, columna] = datoNuevo
         df_producto.to_csv(filePath, index_label='ID')
         print('\nEdicion de dato completada')
@@ -158,8 +154,10 @@ def editarDato(id, columna, datoNuevo):
         print('\nEl producto con ese id no existe')
     
     
-    
+
 def agregar_producto(producto):
+    """ Auxiliar para  el menu :agregar producto
+    :param Producto  a agregar"""
     global df_producto
     #verficar si el producto existe
     if existe_id(producto.get_id()):
@@ -186,6 +184,7 @@ def agregar_producto(producto):
 
 
 def imprimir_opciones():
+    """ Imprime opciones del menu"""
     print("\t\tBienvenido al gestor de productos.")
     print("\n\tOpciones:")
     print("A) Agregar producto")
@@ -207,6 +206,10 @@ marca = ''
 presentacion = ''
 
 def pedirFecha(nameFecha):
+    """ Solicita cadena con formato de fecha
+    :param str que indica si es la fecha de caducidad o elaboracion
+    :return datetime.date fecha valida"""
+    
     fecha_valida = False
     while not fecha_valida:
         fecha_str = input("Introduce la fecha de " + nameFecha+ " en formato dd/mm/aaaa: ")
@@ -221,6 +224,10 @@ def pedirFecha(nameFecha):
 
 
 def pedirDatos():
+    """ 
+    Solicita los datos atributos para producto
+    
+    """
     global nombre
     global stock
     global precio
@@ -261,6 +268,10 @@ def pedirDatos():
             print("ERROR: Se esperaba un número entero para stock, un número decimal para precio y 'S' o 'N' para refrigeración.")
            
 def pedir_id():
+    """ 
+    Solicita id valido al usuario
+    :return str id valido
+    """
     while True:
         try:
             id = input("Ingrese el ID del producto: ")
@@ -281,9 +292,13 @@ def pedir_id():
 
 
 def validar_columna():
+    """ 
+    Valida  que la columna sea valida
+    :return str columna valida
+    """
     while True:
         try:
-            columna = input("Ingrese columnan a modificar dato:").upper()
+            columna = input("Ingrese columna a modificar dato:").upper()
             opciones_validas = ['NOMBRE', 'STOCK', 'MARCA', 'PRESENTACION', 'PRECIO', 'REFRIGERACION', 'FECHACAA', 'FECHAELAB']
             if columna in opciones_validas:
                 return columna.upper()
@@ -295,6 +310,10 @@ def validar_columna():
 import re
 
 def validar_dato_nuevo(columna):
+    """ Valida el dato nuevo para editarDato()
+    :param str columna: columna a la que pertence el dato nuevo
+    :return dato nuevo correspondiente a la columna
+    """
     while True:
         datoNuevo = input(f"Ingrese el dato nuevo para la columna "+ columna + ": ")
         try:
@@ -316,6 +335,16 @@ def validar_dato_nuevo(columna):
         except ValueError:
             print(f"Entrada inválida para {columna}. Por favor, ingrese un dato válido.")
 
+
+def auxEditData():
+    global df_producto
+    df_producto = readCSV()
+    id = pedir_id()
+    col = validar_columna()
+    data = validar_dato_nuevo(col)
+    
+    editarDato(id, col, data)
+    
 
 def menuProductos():
     try:
@@ -348,15 +377,11 @@ def menuProductos():
                 df_producto = readCSV()
                 id = pedir_id()
                 eliminarProducto(id)
-                #print(df_producto)
+                
                 break
             elif opcion == "D":
-                df_producto = readCSV()
-                # Código para editar producto
-                id = pedir_id()
-                columna = validar_columna()
-                datoNuevo = validar_dato_nuevo(columna)
-                editarDato(id, columna, datoNuevo)
+                print('\nEditar: \n\tPara editar refrigeracion debe ingresar True (Si) o False (No)')
+                auxEditData()
                 break 
             elif opcion == "E":
                 print("\n¡Hasta luego!")
@@ -367,54 +392,9 @@ def menuProductos():
         # Si se produce un error al convertir los datos a los tipos correctos, mostrar un mensaje de error y volver a solicitar los datos.
         print("ERROR: Algo paso!!\t" + e)
     
-    
+
+
+menuProductos()
 
    
     
-    
-
-#Probando consulta
-
-df_producto = readCSV()
-
-p = Producto(' ', 'LECHE', 98, 'LALA', 'CAJA', 23, False,'2020-03-03','2019-03-31')
-#consultaProducto('71344238')
-#id = pedir_id()
-#eliminarProducto(id)
-#agregar_producto(p)
-
-
-print(df_producto)
-
-editarDato('71344238', 'STOCK', 43)
-
-print(df_producto)
-"""
-df_producto = readCSV()
-print('Consulta producto XX3')
-print(consultaProducto('XX3'))
-"""
-
-
-
-#Probando eliminar filas
-"""
-df_producto = readCSV()
-print(df_producto)
-print('Eliminando XX2')
-print(eliminarProducto('XX2'))
-"""
-
-#Probando editar datos
-""""
-df_producto = readCSV()
-print(df_producto)
-editarDato('XX1', 'Nombre', 'Papas fritas')
-print(df_producto)
-"""
-#menuProductos()
-
-#df_producto = pd.read_csv(filePath, index_col=0)
-
-
-#Mini menu de interaccion para producto
