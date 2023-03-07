@@ -145,7 +145,7 @@ class ArchivoEmpleado:
             return False
         
     def imprimirOpciones(self):
-        print("\t\tBienvenido al gestor de Sucursales.")
+        print("\t\tBienvenido al gestor de Empleados.")
         print("\n\tOpciones:")
         print("A) Agregar empleado")
         print("B) Consultar empleado")
