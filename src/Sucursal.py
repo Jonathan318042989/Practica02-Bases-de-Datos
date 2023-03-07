@@ -40,7 +40,7 @@ class Sucursal:
             self.setCalle(calle)
             self.setCodigoPostal(codigoPostal)
             self.setNumero(numero)
-            self.direccion = colonia + ', ' + calle + ', ' +  self.getNumero() + ', ' + self.getCodigoPostal()
+            self.direccion = colonia + ', ' + calle + ', ' +  str(self.getNumero()) + ', ' + str(self.getCodigoPostal())
 
     def setColonia(self, colonia):
             """

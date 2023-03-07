@@ -1,5 +1,2 @@
 ID,Nombre,Colonia,Calle,Numero,CodigoPostal,Telefonos,Fecha de apertura
-sucursal01,Sucursal 01,Agricola,249,#78,8500,[55137890],12-12-2012
-sucursal02,Sucursal Dos,Roma,265,#20,9420,"[5513852459, 5513852459, 5513852459]",12-12-2020
-sucursal03,Sucursal 03,Doctores,789,#52,89520,[2981236],12-12-2016
-sucursal04,Sucursal 04,Agricola,456,#120,36250,[1981236],12-02-2023
+sucursa1,suc1,roma,ote2,#32,09530,[432789],2020-12-12
