@@ -94,25 +94,3 @@ class Archivo:
                 if (row[0] == id):
                     return True
             return False
-        
-            
-
-arch = Archivo()
-arch.verificaExistenciaSucursales("Sucursales")
-"""
-suc1 = Sucursal("sucursal01", "Sucursal 01", "Agricola", "249", 78, "08500", 55137890, "12-12-2012")
-print(suc1.getTelefono())
-arch.agregarSucursal(arch, suc1)
-suc2 = Sucursal("sucursal02", "Sucursal 02", "Roma", "265", 20, "09420", 8, "12-12-2020")
-print(suc2.getTelefono())
-arch.agregarSucursal(arch, suc2)
-suc3 = Sucursal("sucursal03", "Sucursal 03", "Doctores", "789", 52, "89520", 2981236, "12-12-2016")
-print(suc3.getTelefono())
-arch.agregarSucursal(arch, suc3)
-suc4 = Sucursal("sucursal04", "Sucursal 04", "Agricola", "456", 120, "36250", 1981236, "12-02-2023")
-print(suc4.getTelefono())
-arch.agregarSucursal(arch, suc4)
-arch.editarListaTelefonos("sucursal02",  2,  0)
-"""
-print(arch.consultarSucursal("sucursal02"))
-
