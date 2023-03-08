@@ -391,10 +391,5 @@ def menuProductos():
     except Exception as e:
         # Si se produce un error al convertir los datos a los tipos correctos, mostrar un mensaje de error y volver a solicitar los datos.
         print("ERROR: Algo paso!!\t" + e)
-    
-
-
-menuProductos()
-
    
     

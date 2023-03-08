@@ -1,6 +1,7 @@
 from ArchivoSucursal import ArchivoSucursal
 from ArchivoEmpleado import ArchivoEmpleado
-from ArchivoProducto import menuProductos
+import ArchivoProducto
+
 
 
 class Main:
@@ -30,7 +31,7 @@ class Main:
                     break
                 elif opcion == 3:
                     print('\nGestionar productos')
-                    menuProductos()
+                    ArchivoProducto.menuProductos()
                     break
                 elif opcion == 4:
                     print("\n¡Hasta luego!")

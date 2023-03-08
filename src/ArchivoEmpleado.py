@@ -10,7 +10,7 @@ from Empleado import Empleado
 class ArchivoEmpleado:
     
     global archivo
-    dfEmpleado = pd.DataFrame(columns=["ID", "Nombres", "Apellido Materno", "Apellido Paterno", "Colonia", "Calle", "Numero", "CodigoPostal", "Telefonos", "Correo electronico", "Fecha de Nacimiento", "Puesto", "IDSucursal"])
+    dfEmpleado = pd.DataFrame(columns=["ID", "NOMBRES", "APELLIDO MATERNO", "APELLIDO PATERNO", "COLONIA", "CALLE", "NUMERO", "CODGIO POSTAL", "TELEFONOS", "CORREO ELECTRONICO", "FECGA DE NACIMIENTO", "PUESTO", "IDSUCURSAL"])
     empleadoPath = "CSV/Empleados.csv"
     def __init__(self):
         global archivo
@@ -31,7 +31,7 @@ class ArchivoEmpleado:
         Inicializamos el archivo
         """
         writer = csv.writer(archivo)
-        writer.writerow(["ID", "Nombres", "Apellido Materno", "Apellido Paterno", "Colonia", "Calle", "Numero", "CodigoPostal", "Telefonos", "Correo electronico", "Fecha de Nacimiento", "Puesto", "IDSucursal"])
+        writer.writerow(["ID", "NOMBRES", "APELLIDO MATERNO", "APELLIDO PATERNO", "COLONIA", "CALLE", "NUMERO", "CODGIO POSTAL", "TELEFONOS", "CORREO ELECTRONICO", "FECGA DE NACIMIENTO", "PUESTO", "IDSUCURSAL"])
         archivo.close()
 
     def agregarEmpleado(self, empleado):
@@ -89,22 +89,22 @@ class ArchivoEmpleado:
         if(self.existeIDEmpleado(id)):
             if(opcion == 1):
                 data = pd.read_csv(self.empleadoPath, index_col= 'ID')
-                datoActual = data.loc[id, "Telefonos"]
+                datoActual = data.loc[id, "TELEFONOS"]
                 listaActual = datoActual.strip('][').split(', ')
                 listaActual = list(map(int, listaActual))
                 if(type(datoNuevo == int)):
                     listaActual.append(datoNuevo)
-                    data.loc[id, "Telefonos"]  = str(listaActual)
+                    data.loc[id, "TELEFONOS"]  = str(listaActual)
                     data.to_csv(self.empleadoPath)
                 else:
                     print("El telefono debe ser un numero")
             elif(opcion == 2):
                 data = pd.read_csv(self.empleadoPath, index_col= 'ID')
-                datoActual = data.loc[id, "Telefonos"]
+                datoActual = data.loc[id, "TELEFONOS"]
                 listaActual = datoActual.strip('][').split(', ')
                 listaActual = list(map(int, listaActual))
                 del listaActual[datoNuevo]
-                data.loc[id, "Telefonos"]  = str(listaActual)
+                data.loc[id, "TELEFONOS"]  = str(listaActual)
                 data.to_csv(self.empleadoPath)
         else:
             print("No se encontro el ID")
@@ -116,19 +116,19 @@ class ArchivoEmpleado:
         if(self.existeIDEmpleado(id)):
             if(opcion == 1):
                 data = pd.read_csv(self.empleadoPath, index_col= 'ID')
-                datoActual = data.loc[id, "Correo electronico"]
+                datoActual = data.loc[id, 'CORREO ELECTRONICO']
                 listaActual = datoActual.strip('][').split(', ')
                 listaActual = list(map(str, listaActual))
                 listaActual.append(datoNuevo)
-                data.loc[id, "Correo electronico"]  = str(listaActual)
+                data.loc[id, 'CORREO ELECTRONICO']  = str(listaActual)
                 data.to_csv(self.empleadoPath)
             elif(opcion == 2):
                 data = pd.read_csv(self.empleadoPath, index_col= 'ID')
-                datoActual = data.loc[id, "Correo electronico"]
+                datoActual = data.loc[id, 'CORREO ELECTRONICO']
                 listaActual = datoActual.strip('][').split(', ')
                 listaActual = list(map(str, listaActual))
                 del listaActual[datoNuevo]
-                data.loc[id, "Correo electronico"]  = str(listaActual)
+                data.loc[id, 'CORREO ELECTRONICO']  = str(listaActual)
                 data.to_csv(self.empleadoPath)
         else:
             print("No se encontro el ID")
@@ -152,7 +152,7 @@ class ArchivoEmpleado:
         print("C) Eliminar empleado")
         print("D) Editar empleado")
         print("E) Salir")
-        print("Seleccione una opción:")
+        print("Seleccione una opción: ")
 
     id = ''
     nombreCompleto = ''
@@ -222,7 +222,7 @@ class ArchivoEmpleado:
 
 
     def validar_columna(self, columna):
-        opciones_validas = ["ID", "Nombres", "Apellido Materno", "Apellido Paterno", "Colonia", "Calle", "Numero", "CodigoPostal", "Telefonos", "Correo electronico", "Fecha de Nacimiento", "Puesto", "IDSucursal"]
+        opciones_validas = ["ID", "NOMBRES", "APELLIDO MATERNO", "APELLIDO PATERNO", "COLONIA", "CALLE", "NUMERO", "CODGIO POSTAL", "TELEFONOS", "CORREO ELECTRONICO", "FECGA DE NACIMIENTO", "PUESTO", "IDSUCURSAL"]
         while columna not in opciones_validas:
             columna = input("Entrada inválida. Por favor, ingrese una columna válida: ")
         return columna
@@ -230,18 +230,20 @@ class ArchivoEmpleado:
 
 
 
-    def validar_dato_nuevo( columna):
+    def validar_dato_nuevo(self,  columna):
         while True:
             datoNuevo = input("Ingrese el dato nuevo: ")
-            if isinstance(datoNuevo, str) and (columna == 'Nombre' or
-                                            columna == 'Colonia' or columna == 'Calle' or columna == 'CodigoPostal'
-                                            or columna == 'ID' or columna == 'Apellido Materno' or columna == 'Apellido Paterno') :
+            if isinstance(datoNuevo, str) and (columna == 'NOMBRES' or
+                                            columna == 'COLONIA' or columna == 'CALLE' or columna == 'CODIGO POSTAL'
+                                            or columna == 'ID' or columna == 'APELLIDO MATERNO' or columna == 'APELLIDO PATERNO'
+                                            or columna == 'CORREO ELECTRONICO' or columna == 'PUESTO' or columna == 'IDSUCURSAL') :
                 return datoNuevo
-            elif isinstance(datoNuevo, int) and columna == 'Telefonos':
-                return datoNuevo
+            elif isinstance(datoNuevo, int) and columna == 'TELEFONOS' or columna == 'CORREOS':
+                print("Para modificar telefonos o correos, seleccione la opcion especificada para esto.")
+                return
             elif isinstance(datoNuevo, int) and columna == 'Numero':
                 return datoNuevo
-            elif isinstance(datoNuevo, str) and re.match(r'\d{2}/\d{2}/\d{4}', datoNuevo) and (columna== 'Fecha de Nacimiento'):
+            elif isinstance(datoNuevo, str) and re.match(r'\d{2}/\d{2}/\d{4}', datoNuevo) and (columna== 'FECHA DE NACIMIENTO'):
                 return datoNuevo
             else:
                 datoNuevo = input("Entrada inválida. Por favor, ingrese un dato válido: ")
@@ -260,7 +262,6 @@ class ArchivoEmpleado:
                     self.fecha = self.pedirFecha()
                     empleadoNuevo = Empleado(self.id, self.nombres, self.apellidoMaterno, self.apellidoPaterno, self.colonia, self.calle, self.numero, self.codigoPostal, self.telefonos, self.correos, self.fecha, self.puesto, self.sucursal)
                     self.agregarEmpleado(empleadoNuevo)
-                    break
                 elif opcion == "B":
                     print('\n Consultar')
                     self.verificaExistenciaEmpleados()
@@ -292,9 +293,10 @@ class ArchivoEmpleado:
                             indice = int(input("Ingrese el indice del telefono a eliminar"))
                             self.editarListaTelefonos(id, opcion, indice)
                     elif(opcion == 'B'):
-                        column = input("Ingrese la columna a editar: ")
+                        column = input("Ingrese la columna a editar: ").upper()
+                        column = self.validar_columna(column)
                         id = self.pedir_id()
-                        datoNuevo = self.validar_dato_nuevo()
+                        datoNuevo = self.validar_dato_nuevo(column)
                         self.editarDato(id, column, datoNuevo)
                     elif(opcion == 'C'):
                         print("\n\tOpciones:")
@@ -303,8 +305,8 @@ class ArchivoEmpleado:
                         opcion = int(input("Ingrese la opción que desea ejecutar: "))
                         id = self.pedir_id()
                         if(opcion == 1):
-                            tel = int(input("Ingrese un correo"))
-                            self.editarListaCorreos(id, opcion, tel)
+                            cor = input("Ingrese un correo")
+                            self.editarListaCorreos(id, opcion, cor)
                         elif(opcion == 2):
                             indice = int(input("Ingrese el indice del correo a eliminar"))
                             self.editarListaCorreos(id, opcion, indice)

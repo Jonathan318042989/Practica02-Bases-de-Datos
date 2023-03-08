@@ -30,7 +30,7 @@ class ArchivoSucursal:
         Inicializamos el archivo
         """
         writer = csv.writer(archivo)
-        writer.writerow(["ID", "Nombre", "Colonia", "Calle", "Numero", "CodigoPostal", "Telefonos", "Fecha de apertura"])
+        writer.writerow(["ID", "NOMBRE", "COLONIA", "CALLE", "NUMERO", "CODIGO POSTAL", "TELEFONOS", "FECHA DE APERTURA"])
         archivo.close()
 
     def agregarSucursal(self, sucursal):
@@ -86,23 +86,23 @@ class ArchivoSucursal:
         if(self.existeIDSucursal(id)):
             if(opcion == 1):
                 data = pd.read_csv(self.sucursalPath, index_col= 'ID')
-                datoActual = data.loc[id, "Telefonos"]
+                datoActual = data.loc[id, "TELEFONOS"]
                 listaActual = datoActual.strip('][').split(', ')
                 listaActual = list(map(int, listaActual))
                 if(type(datoNuevo == int)):
                     listaActual.append(datoNuevo)
 
-                    data.loc[id, "Telefonos"]  = str(listaActual)
+                    data.loc[id, "TELEFONOS"]  = str(listaActual)
                     data.to_csv(self.sucursalPath)
                 else:
                     print("El telefono debe ser un numero")
             elif(opcion == 2):
                 data = pd.read_csv(self.sucursalPath, index_col= 'ID')
-                datoActual = data.loc[id, "Telefonos"]
+                datoActual = data.loc[id, "TELEFONOS"]
                 listaActual = datoActual.strip('][').split(', ')
                 listaActual = list(map(int, listaActual))
                 del listaActual[datoNuevo]
-                data.loc[id, "Telefonos"]  = str(listaActual)
+                data.loc[id, "TELEFONOS"]  = str(listaActual)
                 data.to_csv(self.sucursalPath)
         else:
             print("No se encontro el ID")
@@ -189,26 +189,26 @@ class ArchivoSucursal:
 
 
     def validar_columna(self, columna):
-        opciones_validas = ["ID", "Nombre", "Colonia", "Calle", "Numero", "CodigoPostal", "Telefonos", "Fecha de apertura"]
+        opciones_validas = ["ID", "NOMBRE", "COLONIA", "CALLE", "NUMERO", "CODIGO POSTAL", "TELEFONOS", "FECHA DE APERTURA"]
         while columna not in opciones_validas:
-            columna = input("Entrada inválida. Por favor, ingrese una columna válida: ")
+            columna = input("Entrada inválida. Por favor, ingrese una columna válida: ").upper()
         return columna
     
 
 
 
-    def validar_dato_nuevo( columna):
+    def validar_dato_nuevo(self,  columna):
         while True:
             datoNuevo = input("Ingrese el dato nuevo: ")
-            if isinstance(datoNuevo, str) and (columna == 'Nombre' or
-                                            columna == 'Colonia' or columna == 'Calle' or columna == 'CodigoPostal'
+            if isinstance(datoNuevo, str) and (columna == 'NOMBRE' or
+                                            columna == 'COLONIA' or columna == 'CALLE' or columna == 'CODIGO POSTAL'
                                             or columna == 'ID') :
                 return datoNuevo
-            elif isinstance(datoNuevo, int) and columna == 'Telefonos':
+            elif isinstance(datoNuevo, int) and columna == 'TELEFONOS':
                 return datoNuevo
-            elif isinstance(datoNuevo, int) and columna == 'Numero':
+            elif isinstance(datoNuevo, int) and columna == 'NUMERO':
                 return datoNuevo
-            elif isinstance(datoNuevo, str) and re.match(r'\d{2}/\d{2}/\d{4}', datoNuevo) and (columna== 'Fecha de apertura'):
+            elif isinstance(datoNuevo, str) and re.match(r'\d{2}/\d{2}/\d{4}', datoNuevo) and (columna== 'FECHA DE APERTURA'):
                 return datoNuevo
             else:
                 datoNuevo = input("Entrada inválida. Por favor, ingrese un dato válido: ")
@@ -227,12 +227,11 @@ class ArchivoSucursal:
                     self.fecha = self.pedirFecha()
                     sucursal = Sucursal(self.id, self.nombre, self.colonia, self.calle, self.numero, self.codigoPostal, self.telefonos, self.fecha)
                     self.agregarSucursal(sucursal)
-                    break
                 elif opcion == "B":
                     print('\n Consultar')
                     self.verificaExistenciaSucursales()
                     id = self.pedir_id()
-                    self.consultarSucursal(id)
+                    print(self.consultarSucursal(id))
                 elif opcion == "C":
                     print('\n Eliminar')
                     self.verificaExistenciaSucursales()
@@ -258,9 +257,10 @@ class ArchivoSucursal:
                             indice = int(input("Ingrese el indice del telefono a eliminar"))
                             self.editarListaTelefonos(id, opcion, indice)
                     elif(opcion == 'B'):
-                        column = input("Ingrese la columna a editar: ")
+                        column = input("Ingrese la columna a editar: ").upper()
+                        column = self.validar_columna(column)
                         id = self.pedir_id()
-                        datoNuevo = self.validar_dato_nuevo()
+                        datoNuevo = self.validar_dato_nuevo(column)
                         self.editarDato(id, column, datoNuevo)
                 elif opcion == "E":
                     print("\n¡Hasta luego!")
